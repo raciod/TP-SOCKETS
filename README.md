@@ -7,18 +7,33 @@ Travaux Pratiques sur la programmation réseau avec les sockets en C (TCP & UDP)
 ## Structure du projet
 
 ```
-TP-SOCKETS/
-├── C_S_TCP/          # Client-Serveur TCP (simple)
-├── C_S_TCP_Proc/     # Client-Serveur TCP avec processus (fork)
-├── C_S_UDP/          # Client-Serveur UDP
-└── fictel            # Fichier de correspondance nom → numéro
+TP_SOCKET_2/
+├── C_S_TCP/
+│   ├── client.c
+│   ├── client
+│   ├── serveur.c
+│   ├── serveur
+│   └── fictel
+├── C_S_TCP_Proc/
+│   ├── client.c
+│   ├── client
+│   ├── serveur.c
+│   ├── serveur
+│   └── fictel
+├── C_S_UDP/
+│   ├── client.c
+│   ├── client
+│   ├── serveur.c
+│   ├── serveur
+│   └── fictel
+└── TPs-2526- SOCKET.docx
 ```
 
 ---
 
 ## Le fichier `fictel`
 
-Le serveur utilise ce fichier pour retrouver le numéro associé à un nom :
+Chaque dossier contient son propre fichier `fictel`. Le serveur l'utilise pour retrouver le numéro associé à un nom :
 
 ```
 6768 alami
@@ -33,41 +48,38 @@ Le serveur utilise ce fichier pour retrouver le numéro associé à un nom :
 ```
 
 ---
-
-## Compilation
-
-Dans chaque dossier, compile avec `make` ou directement avec `gcc` :
-
+## Recompiler (optionnel)
+ 
+Si tu modifies les sources :
+ 
 ```bash
 gcc serveur.c -o serveur
 gcc client.c -o client
 ```
 
----
 
 ## Utilisation
 
-### 1. Lancer le serveur
-
-Ouvre un **premier terminal**, navigue vers le dossier souhaité et exécute :
+### Étape 1 — Terminal 1 : lancer le serveur
 
 ```bash
+cd C_S_TCP        # ou C_S_TCP_Proc ou C_S_UDP
 ./serveur
 ```
 
-Le serveur reste en attente de connexions et consulte `fictel` pour répondre.
+Le serveur se met en attente de connexions.
 
-### 2. Lancer le client
-
-Ouvre un **deuxième terminal** et exécute :
+### Étape 2 — Terminal 2 : lancer le client
 
 ```bash
+cd C_S_TCP        # même dossier que le serveur
 ./client localhost [nom]
 ```
 
-> Remplace `[nom]` par un nom présent dans le fichier `fictel`.
+> Remplace `[nom]` par un nom présent dans `fictel`.
 
 **Exemples :**
+
 ```bash
 ./client localhost rachid
 # → 0001
@@ -79,15 +91,11 @@ Ouvre un **deuxième terminal** et exécute :
 # → 6929
 ```
 
-Le serveur recherche le nom dans `fictel` et renvoie le numéro correspondant.
-
 ---
+
 
 ## Notes
 
-- Le fichier `fictel` doit se trouver dans le même répertoire que `./serveur`.
-- Assure-toi que le serveur est bien lancé **avant** le client.
-- Pour tester en réseau local, remplace `localhost` par l'adresse IP de la machine serveur.
-- Si le nom n'est pas trouvé dans `fictel`, le serveur retourne une erreur ou une réponse (????).
-
----
+- Le fichier `fictel` doit rester dans le même dossier que `./serveur`.
+- Lance toujours le serveur **avant** le client.
+- Pour tester sur un autre PC du réseau local, remplace `localhost` par l'adresse IP du serveur.
